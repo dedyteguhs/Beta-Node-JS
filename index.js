@@ -31,7 +31,7 @@ app.get('/api/products',(req, res) => {
  
 //tampilkan data product berdasarkan id
 app.get('/api/products/:id',(req, res) => {
-  let sql = "SELECT * FROM product WHERE product_id="+req.params.id;
+  let sql = "SELECT * FROM users WHERE id="+req.params.id;
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
     res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
@@ -40,8 +40,8 @@ app.get('/api/products/:id',(req, res) => {
  
 //Tambahkan data product baru
 app.post('/api/products',(req, res) => {
-  let data = {product_name: req.body.product_name, product_price: req.body.product_price};
-  let sql = "INSERT INTO product SET ?";
+  let data = {name: req.body.name, email: req.body.email};
+  let sql = "INSERT INTO users SET ?";
   let query = conn.query(sql, data,(err, results) => {
     if(err) throw err;
     res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
@@ -50,7 +50,7 @@ app.post('/api/products',(req, res) => {
  
 //Edit data product berdasarkan id
 app.put('/api/products/:id',(req, res) => {
-  let sql = "UPDATE product SET product_name='"+req.body.product_name+"', product_price='"+req.body.product_price+"' WHERE product_id="+req.params.id;
+  let sql = "UPDATE users SET name='"+req.body.name+"', email='"+req.body.email+"' WHERE id="+req.params.id;
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
     res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
@@ -59,7 +59,7 @@ app.put('/api/products/:id',(req, res) => {
  
 //Delete data product berdasarkan id
 app.delete('/api/products/:id',(req, res) => {
-  let sql = "DELETE FROM product WHERE product_id="+req.params.id+"";
+  let sql = "DELETE FROM users WHERE id="+req.params.id+"";
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
       res.send(JSON.stringify({"status": 200, "error": null, "response": results}));

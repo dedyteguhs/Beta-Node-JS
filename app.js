@@ -4,6 +4,8 @@ const path = require('path');
 const express = require('express');
 //use hbs view engine
 const hbs = require('hbs');
+//midleware 
+const bodyParser = require('body-parser');
 const app = express();
  
 //set dynamic views file
@@ -11,6 +13,8 @@ app.set('views',path.join(__dirname,'views'));
 //set view engine
 app.set('view engine', 'hbs');
 //set public folder as static folder for static file
+app.use(bodyParser.urlencoded({ extended: false }));
+//set public folder as static folder 
 app.use(express.static('public'));
 //route untuk halaman home
 app.get('/',(req, res) => {
@@ -19,7 +23,23 @@ app.get('/',(req, res) => {
   	name : "dedy teguh "
   });
 });
- 
+//route untuk menampilkan form 
+app.get('/post',(req,res)=>{
+	res.render('form');
+});
+//route submit 
+app.post('/post',(req,res)=>{
+	//render file
+	res.render('index',{
+		name : req.body.textname
+	});
+});
+
+app.get('/:name',(req,res)=>{
+	res.render('index',{
+		name : req.params.name
+	});
+});
 //route untuk halaman about
 app.get('/about',(req, res) => {
 	res.render('index',{

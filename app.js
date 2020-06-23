@@ -15,18 +15,22 @@ app.use(express.static('public'));
 //route untuk halaman home
 app.get('/',(req, res) => {
   //render file index.hbs
-  res.render('index');
+  res.render('index',{
+  	name : "dedy teguh "
+  });
 });
  
 //route untuk halaman about
 app.get('/about',(req, res) => {
-	
+	res.render('index',{
+		name :req.params.name
+	});
   res.send('This is about page');
 });
  
 // belajar tambahan 
 app.get('/tentang',(req, res) => {
-  res.send('This is about page');
+  res.send('Testing tentang ');
 });
 
 
